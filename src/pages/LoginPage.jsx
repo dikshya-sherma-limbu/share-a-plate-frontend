@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [user, setUser] = useState({
@@ -6,19 +7,17 @@ const LoginPage = () => {
     password: "",
   });
 
-  // method to handle changes in the inpput fields
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser((prevUser) => {
-      return {
-        ...prevUser, // keep the previous state as it is
-        [name]: value, // update the value of the changed input field
-      };
-    });
+    setUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic heres
+    // Handle login logic here
   };
 
   return (
@@ -26,7 +25,7 @@ const LoginPage = () => {
       <div className="flex justify-center m-6 text-darkGreen font-bold text-2xl sm:text-4xl">
         Share A Plate
       </div>
-      <div className="flex flex-col justify-center ">
+      <div className="flex flex-col justify-center">
         <label htmlFor="email" className="text-darkGreen">
           Email
         </label>
@@ -56,7 +55,10 @@ const LoginPage = () => {
           Login
         </button>
         <p className="text-darkGreen mt-4">
-          Don't have an account? <a href="/signup">Sign up</a>
+          Don't have an account? <Link to="/register">Register </Link>
+        </p>
+        <p className="text-darkGreen mt-4">
+          Do you want to test <Link to="/test">TESST </Link>
         </p>
       </div>
     </div>
