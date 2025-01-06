@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { login } from "../services/LoginApiCall";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 const LoginPage = () => {
   const [user, setUser] = useState({
     Email: "",
@@ -12,16 +14,14 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // method to handle changes in the inpput fields
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser((prevUser) => {
-      return {
-        ...prevUser, // keep the previous state as it is
-        [name]: value, // update the value of the changed input field
-      };
-    });
+    setUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
   };
+
   // method to handle the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +39,7 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
+
   };
 
   return (
@@ -46,7 +47,7 @@ const LoginPage = () => {
       <div className="flex justify-center m-6 text-darkGreen font-bold text-2xl sm:text-4xl">
         Share A Plate
       </div>
-      <div className="flex flex-col justify-center ">
+      <div className="flex flex-col justify-center">
         <label htmlFor="email" className="text-darkGreen">
           Email
         </label>
@@ -78,7 +79,10 @@ const LoginPage = () => {
           Login
         </button>
         <p className="text-darkGreen mt-4">
-          Don't have an account? <a href="/signup">Sign up</a>
+          Don't have an account? <Link to="/register">Register </Link>
+        </p>
+        <p className="text-darkGreen mt-4">
+          Do you want to test <Link to="/test">TESST </Link>
         </p>
         {error && <p className="text-red-500 mt-2">{error}</p>}
         {loading && <p className="text-darkGreen mt-2">Loading...</p>}
