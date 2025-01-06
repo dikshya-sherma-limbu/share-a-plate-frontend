@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-
+import { login } from "../services/LoginApiCall";
+import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    Email: "",
+    Password: "",
   });
+
+  const navigate = useNavigate();
+  const [succesfulLogin, setSuccesfulLogin] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // method to handle changes in the inpput fields
   const handleChange = (e) => {
@@ -16,9 +22,23 @@ const LoginPage = () => {
       };
     });
   };
-  const handleSubmit = (e) => {
+  // method to handle the form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle login logic heres
+    console.log("Email:", user.Email);
+
+    setLoading(true);
+    setError("");
+    try {
+      await login(user.Email, user.Password); // login returns token
+      setSuccesfulLogin(true);
+      navigate("/homePage");
+    } catch (error) {
+      setError("Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,22 +52,24 @@ const LoginPage = () => {
         </label>
         <input
           type="email"
-          id="email"
-          name="email"
-          value={user.email}
+          id="Email"
+          name="Email"
+          value={user.Email}
           onChange={handleChange}
           className="rounded-md border border-lightGreen mb-1"
+          required
         />
         <label htmlFor="password" className="text-darkGreen">
           Password
         </label>
         <input
           type="password"
-          id="password"
-          name="password"
-          value={user.password}
+          id="Password"
+          name="Password"
+          value={user.Password}
           onChange={handleChange}
           className="rounded-md border border-lightGreen mb-1"
+          required
         />
         <button
           onClick={handleSubmit}
@@ -58,6 +80,8 @@ const LoginPage = () => {
         <p className="text-darkGreen mt-4">
           Don't have an account? <a href="/signup">Sign up</a>
         </p>
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+        {loading && <p className="text-darkGreen mt-2">Loading...</p>}
       </div>
     </div>
   );
