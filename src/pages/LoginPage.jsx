@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login } from "../services/LoginApiCall";
+import { login } from "../Services/LoginApiCall";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -39,7 +39,6 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
-
   };
 
   return (
@@ -79,7 +78,7 @@ const LoginPage = () => {
           Login
         </button>
         <p className="text-darkGreen mt-4">
-          Don't have an account? <Link to="/register">Register </Link>
+          Don&#39;t have an account? <Link to="/register">Register </Link>
         </p>
         <p className="text-darkGreen mt-4">
           Do you want to test <Link to="/test">TESST </Link>

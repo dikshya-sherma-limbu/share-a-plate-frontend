@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import foodImage from "../Assets/food.png";
+import { useState } from "react";
+import foodImage from "../assets/food.png";
 
 const RegistrationPage = () => {
   const [formData, setFormData] = useState({
